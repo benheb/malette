@@ -1,1 +1,1 @@
-//import all the things
+import './malette.js';
