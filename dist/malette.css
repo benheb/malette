@@ -1,0 +1,344 @@
+#malette {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  right: 10px;
+  top: 10px;
+  background: #FFF;
+  min-height: 110px;
+  width:300px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.11);
+  border-radius: 4px;
+}
+
+#malette-header {
+  padding: 5px;
+  background: #EEE;
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1em;
+  pointer-events:auto;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  color: rgba(172, 172, 172, 0.7);
+  text-shadow: 1px 1px 1px #EEE, 0 0 0 #EEE, 1px 2px 4px #EEE;
+}
+
+#malette-title {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-left: 4px;
+  padding-right: 10px;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Don't show shadows when selecting text */
+::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+::selection { background: #5af; color: #fff; text-shadow: none; }
+
+#malette-content {
+  width: 250px;
+  margin-left: 50px;
+  height: 220px;
+  position: absolute;
+  margin-top: 22px;
+  padding:10px;
+  padding-left:12px;
+  pointer-events:auto;
+}
+
+#malette-tab-region {
+  width: 50px;
+  border-right: 1px solid #EEE;
+  min-height: 220px;
+  position: relative;
+  pointer-events:auto;
+}
+
+.malette-tab {
+  padding:4px;
+  border-bottom: 1px solid #EEE;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.malette-tab.disabled {
+  color: #EEE;
+}
+
+.malette-tab.disabled:hover {
+  cursor: default;
+  background: #FFF;
+}
+
+.malette-tab:hover {
+  background:#F9F9F9;
+}
+
+.malette-tab-selected {
+  width: 51px;
+  background: #FFF;
+}
+
+.malette-option-toggle {
+  float: left;
+  border: 1px solid #EEE;
+  background: #EEE;
+  border-radius: 1px;
+  padding:5px;
+  font-size: 0.8em;
+  margin-right: 5px;
+  padding-top:2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #FFF;
+}
+
+.malette-option-toggle:hover {
+  cursor: pointer;
+}
+
+.malette-option-toggle.disabled {
+  color:#DDD;
+  border:1px solid #EEE;
+}
+
+.malette-option-toggle-selected {
+  background: #FFF;
+}
+
+#malette-color-palette, #malette-theme-palette {
+  width:100%;
+  margin:auto;
+  margin-top: 5px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.malette-color-swatch {
+  width: 26px;
+  height: 17.5px;
+  border: 1px solid #EEE;
+  float: left;
+  margin: 1px;
+}
+
+#malette-selected-color {
+  font-size: 0.8em;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  width: 98%;
+  background: #F8F8F8;
+  padding: 5px;
+  position: relative;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.malette-color-swatch-selected {
+  width: 26px;
+  height: 17px;
+  border: 1px solid #EEE;
+  margin: 1px;
+  position: absolute;
+  right: 3px;
+  top: 2px;
+}
+
+.malette-color-swatch:hover {
+  cursor: pointer;
+  border:1px solid #CCC;
+}
+
+#malette-theme-palette {
+  display: none;
+}
+
+.malette-theme-swatch {
+  width: 28.2px;
+  height: 17px;
+  border: none;
+  float: left;
+  margin: 0px;
+  pointer-events:none;
+}
+
+.malette-theme-row {
+  overflow: hidden;
+  border:1px solid #FFF;
+  margin-bottom: 1px;
+}
+
+.malette-theme-row:hover {
+  border:1px solid #999;
+  cursor: pointer;
+}
+
+#malette-attr-select {
+  margin-bottom: 5px;
+  right: 0px;
+}
+
+#malette-stroke-slider {
+  width:175px;
+  float: left;
+  margin-top:10px;
+  margin-bottom: 1px;
+}
+
+#malette-stroke-width {
+  width: 45px;
+  float: right;
+  font-size: 1.6rem;
+  text-align: right;
+  margin-right: 8px;
+}
+
+#malette-export-toggle-text {
+  color:#888;
+}
+
+#malette-export-toggle-container {
+  font-size: 0.8em;
+  text-transform: none;
+  display: inline-block;
+  font-weight: 400;
+  margin-top: 0px;
+  position: absolute;
+  right: 13px;
+  bottom: 1px;
+}
+
+#malette-export-toggle-container input {
+  margin-left:4px;
+  cursor: pointer;
+}
+
+#malette-export-container {
+  height: 200px;
+  background-color: #FFF;
+  position: absolute;
+  margin-top: -3px;
+  z-index: 1000;
+  border-top: 1px solid #EEE;
+  width: 300px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  visibility: hidden;
+}
+
+#malette-export-header {
+  border: 1px solid #EEE;
+  width:100%;
+  font-size: 0.8em;
+  overflow: hidden;
+  padding:5px;
+  pointer-events:auto;
+}
+
+#malette-export-header input {
+  margin-right: 3px;
+}
+
+#malette-export-header span {
+  margin-right: 10px;
+}
+
+#export-code-block {
+  width:95%;
+  margin:auto;
+  height: 148px;
+  position: relative;
+  display: block;
+  margin-top: 10px;
+  overflow: hidden;
+  overflow-y:auto;
+  pointer-events:auto;
+}
+
+
+/* size */
+#malette-size-slider {
+  margin-top: 45px;
+}
+
+#malette-graduated-palette {
+  overflow: hidden;
+  width:100%;
+  margin-top:25px;
+}
+
+#malette-graduated-palette {
+  display: none;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: none;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow:none;
+  border: 1px solid #999;
+  height: 13px;
+  width: 13px;
+  border-radius: 15px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: none;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow:none;
+  border: 1px solid #999;
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: none;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+  color: transparent;
+}

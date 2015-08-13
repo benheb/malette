@@ -1,0 +1,23 @@
+{
+  "name": "malette",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run compile && npm run bundle && npm run server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel src -d dist --blacklist es6.modules -e 0",
+    "bundle": "rollup dist/index.js -o dist/bundle.js",
+    "server": "http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "http-server": "^0.8.0",
+    "rollup": "^0.12.1"
+  },
+  "dependencies": {
+    "document-register-element": "^0.4.5"
+  }
+}
