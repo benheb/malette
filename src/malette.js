@@ -1,7 +1,8 @@
 //! malette.js
-//! version : 0.01
-//! author : Brendan Heberton
+//! version : 1.00
 //!license : MIT 
+
+import {'*'} from './colors.js';
 
 //class Malette extends HTMLElement {
 class Malette {
@@ -49,10 +50,10 @@ class Malette {
         }
         
         this.state.fillOpacity = this.style.symbol.color[3];
-        this.style.symbol.color = this._dojoColorToRgba( this.style.symbol.color ); //helper for colors, etc\
+        this.style.symbol.color = dojoColorToRgba( this.style.symbol.color ); //helper for colors, etc\
 
         if ( this.state.type !== 'line' ) {
-          this.style.symbol.outline.color = this._dojoColorToRgba( this.style.symbol.outline.color );
+          this.style.symbol.outline.color = dojoColorToRgba( this.style.symbol.outline.color );
         }
 
       } else {
@@ -701,14 +702,14 @@ class Malette {
     this.style.classBreakInfos = [
       {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 4,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -719,14 +720,14 @@ class Malette {
       },
       {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 10,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -737,14 +738,14 @@ class Malette {
       },
       {
        "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 16,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -755,14 +756,14 @@ class Malette {
       },
       {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 22,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -773,14 +774,14 @@ class Malette {
       },
       {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 30,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -923,7 +924,7 @@ class Malette {
     var ramp = [];
 
     this.themeColors[ index ].forEach(function(color) {
-      var c = self._rgbaToDojoColor(color);
+      var c = rgbaToDojoColor(color);
       ramp.push(c);
     });
 
@@ -1000,25 +1001,6 @@ class Malette {
     });
   }
 
-  //helpers 
-  _dojoColorToRgba (c) {
-    var color = 'rgba('+c[0]+','+c[1]+','+c[2]+','+c[3]+')';
-    return color;
-  }
-
-  _rgbaToDojoColor (c, opacity) {
-    var color;
-    if ( !opacity ) opacity = 255;
-
-    if ( Array.isArray(c) ) {
-      color = c;
-      color[3] = opacity;
-      return color;
-    } else {
-      color = c.split(',');
-      return [ parseInt(color[0].replace(/[^0-9]/g, '')), parseInt(color[1]), parseInt(color[2]), opacity ];
-    }
-  }
 
   /*
   * Convert various style inputs to esri-json which is used in Malette 
@@ -1075,9 +1057,9 @@ class Malette {
     if ( this.exportFormat === 'esri-json' ) {
 
       if ( this.style.symbol ) {
-        this.style.symbol.color = this._rgbaToDojoColor( this.style.symbol.color, this.state.fillOpacity ); //change colors BACK to dojo :(
+        this.style.symbol.color = rgbaToDojoColor( this.style.symbol.color, this.state.fillOpacity ); //change colors BACK to dojo :(
         if ( this.state.type !== 'line' ) {
-          this.style.symbol.outline.color = this._rgbaToDojoColor( this.style.symbol.outline.color );
+          this.style.symbol.outline.color = rgbaToDojoColor( this.style.symbol.outline.color );
         }
       }
 
@@ -1106,10 +1088,10 @@ class Malette {
 
     if ( type === 'esri-json' ) {
 
-      this.style.symbol.color = this._rgbaToDojoColor( this.style.symbol.color, this.state.fillOpacity ); //change colors BACK to dojo :(
+      this.style.symbol.color = rgbaToDojoColor( this.style.symbol.color, this.state.fillOpacity ); //change colors BACK to dojo :(
 
       if ( this.state.type !== 'line' ) {
-        this.style.symbol.outline.color = this._rgbaToDojoColor( this.style.symbol.outline.color );
+        this.style.symbol.outline.color = rgbaToDojoColor( this.style.symbol.outline.color );
       }
 
       document.getElementById('export-code-block').innerHTML = JSON.stringify(this.style, null, 2);

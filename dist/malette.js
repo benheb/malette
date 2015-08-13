@@ -1,15 +1,33 @@
+function dojoColorToRgba(c) {
+  var color = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + c[3] + ')';
+  return color;
+}
+
+function rgbaToDojoColor(c, opacity) {
+  var color;
+  if (!opacity) opacity = 255;
+
+  if (Array.isArray(c)) {
+    color = c;
+    color[3] = opacity;
+    return color;
+  } else {
+    color = c.split(',');
+    return [parseInt(color[0].replace(/[^0-9]/g, '')), parseInt(color[1]), parseInt(color[2]), opacity];
+  }
+}
+
 //! malette.js
-//! version : 0.01
-//! author : Brendan Heberton
+//! version : 1.00
 //!license : MIT
 
-//class Malette extends HTMLElement {
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
+//class Malette extends HTMLElement {
 var Malette = (function () {
   // constructor(el) {
   //   this.el = el;
@@ -57,10 +75,10 @@ var Malette = (function () {
         }
 
         this.state.fillOpacity = this.style.symbol.color[3];
-        this.style.symbol.color = this._dojoColorToRgba(this.style.symbol.color); //helper for colors, etc\
+        this.style.symbol.color = dojoColorToRgba(this.style.symbol.color); //helper for colors, etc\
 
         if (this.state.type !== 'line') {
-          this.style.symbol.outline.color = this._dojoColorToRgba(this.style.symbol.outline.color);
+          this.style.symbol.outline.color = dojoColorToRgba(this.style.symbol.outline.color);
         }
       } else {
         //TODO
@@ -729,14 +747,14 @@ var Malette = (function () {
       this.style.minValue = 1;
       this.style.classBreakInfos = [{
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 4,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -746,14 +764,14 @@ var Malette = (function () {
         "classMaxValue": values[0]
       }, {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 10,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -763,14 +781,14 @@ var Malette = (function () {
         "classMaxValue": values[1]
       }, {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 16,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -780,14 +798,14 @@ var Malette = (function () {
         "classMaxValue": values[2]
       }, {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 22,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -797,14 +815,14 @@ var Malette = (function () {
         "classMaxValue": values[3]
       }, {
         "symbol": {
-          "color": this._rgbaToDojoColor(this.style.symbol.color),
+          "color": rgbaToDojoColor(this.style.symbol.color),
           "size": 30,
           "xoffset": 0,
           "yoffset": 0,
           "type": "esriSMS",
           "style": "esriSMSCircle",
           "outline": {
-            "color": this._rgbaToDojoColor(this.style.symbol.outline.color),
+            "color": rgbaToDojoColor(this.style.symbol.outline.color),
             "width": this.style.symbol.outline.width,
             "type": "esriSLS",
             "style": "esriSLSSolid"
@@ -961,7 +979,7 @@ var Malette = (function () {
       var ramp = [];
 
       this.themeColors[index].forEach(function (color) {
-        var c = self._rgbaToDojoColor(color);
+        var c = rgbaToDojoColor(color);
         ramp.push(c);
       });
 
@@ -1044,29 +1062,6 @@ var Malette = (function () {
       });
     }
 
-    //helpers
-  }, {
-    key: '_dojoColorToRgba',
-    value: function _dojoColorToRgba(c) {
-      var color = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + c[3] + ')';
-      return color;
-    }
-  }, {
-    key: '_rgbaToDojoColor',
-    value: function _rgbaToDojoColor(c, opacity) {
-      var color;
-      if (!opacity) opacity = 255;
-
-      if (Array.isArray(c)) {
-        color = c;
-        color[3] = opacity;
-        return color;
-      } else {
-        color = c.split(',');
-        return [parseInt(color[0].replace(/[^0-9]/g, '')), parseInt(color[1]), parseInt(color[2]), opacity];
-      }
-    }
-
     /*
     * Convert various style inputs to esri-json which is used in Malette 
     * 
@@ -1128,9 +1123,9 @@ var Malette = (function () {
       if (this.exportFormat === 'esri-json') {
 
         if (this.style.symbol) {
-          this.style.symbol.color = this._rgbaToDojoColor(this.style.symbol.color, this.state.fillOpacity); //change colors BACK to dojo :(
+          this.style.symbol.color = rgbaToDojoColor(this.style.symbol.color, this.state.fillOpacity); //change colors BACK to dojo :(
           if (this.state.type !== 'line') {
-            this.style.symbol.outline.color = this._rgbaToDojoColor(this.style.symbol.outline.color);
+            this.style.symbol.outline.color = rgbaToDojoColor(this.style.symbol.outline.color);
           }
         }
 
@@ -1159,10 +1154,10 @@ var Malette = (function () {
 
       if (type === 'esri-json') {
 
-        this.style.symbol.color = this._rgbaToDojoColor(this.style.symbol.color, this.state.fillOpacity); //change colors BACK to dojo :(
+        this.style.symbol.color = rgbaToDojoColor(this.style.symbol.color, this.state.fillOpacity); //change colors BACK to dojo :(
 
         if (this.state.type !== 'line') {
-          this.style.symbol.outline.color = this._rgbaToDojoColor(this.style.symbol.outline.color);
+          this.style.symbol.outline.color = rgbaToDojoColor(this.style.symbol.outline.color);
         }
 
         document.getElementById('export-code-block').innerHTML = JSON.stringify(this.style, null, 2);
