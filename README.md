@@ -10,6 +10,6 @@ Malette UI: [http://benheb.github.io/malette-ui/](http://benheb.github.io/malett
 - [X] es6ify it
 - [X] build
 - [ ] web componentify it
-- [ ] use templates
+- [ ] use templates?
 - [ ] package css into it
 - [ ] break it into several files/modules?
