@@ -119,17 +119,12 @@ class Malette {
     var template = `
       <div id='malette-tab-region'>
         <div id='malette-color-tab' class='malette-tab malette-tab-selected'>color</div>
-        <div id='malette-size-tab' class='malette-tab '${disabled}>size</div>
+        <div id='malette-size-tab' class='malette-tab ${disabled}'>size</div>
         <div id='malette-stroke-tab' class='malette-tab'>${stroke}</div>
         <div id='malette-opacity-tab' class='malette-tab'>opacity</div>
       </div>
     `
     el.appendChild(stringToDom(template));
-
-    this._createElement('div', tabRegion, 'malette-color-tab', 'color', 'malette-tab malette-tab-selected');
-    this._createElement('div', tabRegion, 'malette-size-tab', 'size', 'malette-tab '+disabled);
-    this._createElement('div', tabRegion, 'malette-stroke-tab', stroke, 'malette-tab');
-    this._createElement('div', tabRegion, 'malette-opacity-tab', 'opacity', 'malette-tab');
 
     //toggle the tabs!! 
     this._classEventBuilder('click', 'malette-tab', '_onTabClick' );

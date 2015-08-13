@@ -179,7 +179,7 @@ var Malette = (function () {
       var disabled = this.state.type === 'point' ? '' : 'disabled';
       var stroke = this.state.type !== 'line' ? 'stroke' : 'line';
 
-      var template = '\n      <div id=\'malette-tab-region\'>\n        <div id=\'malette-color-tab\' class=\'malette-tab malette-tab-selected\'>color</div>\n        <div id=\'malette-size-tab\' class=\'malette-tab\'>size</div>\n        <div id=\'malette-stroke-tab\' class=\'malette-tab\'>stroke</div>\n        <div id=\'malette-opacity-tab\' class=\'malette-tab\'>opacity</div>\n      </div>\n    ';
+      var template = '\n      <div id=\'malette-tab-region\'>\n        <div id=\'malette-color-tab\' class=\'malette-tab malette-tab-selected\'>color</div>\n        <div id=\'malette-size-tab\' class=\'malette-tab ' + disabled + '\'>size</div>\n        <div id=\'malette-stroke-tab\' class=\'malette-tab\'>' + stroke + '</div>\n        <div id=\'malette-opacity-tab\' class=\'malette-tab\'>opacity</div>\n      </div>\n    ';
       el.appendChild(stringToDom(template));
 
       //toggle the tabs!!
