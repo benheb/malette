@@ -10,7 +10,7 @@
     "compile": "babel src -d _tmp --blacklist es6.modules -e 0",
     "bundle": "rollup _tmp/index.js -o dist/malette.js",
     "combine": "uglifyjs node_modules/document-register-element/build/document-register-element.js dist/malette.js -o dist/polyfilled-malette.js",
-    "server": "http-server"
+    "server": "http-server -p 8081"
   },
   "author": "",
   "license": "ISC",
@@ -18,8 +18,7 @@
     "babel": "^5.8.21",
     "http-server": "^0.8.0",
     "rollup": "^0.12.1",
-    "uglify-js": "^2.4.24",
-    "opn": "^1.0.1"
+    "uglify-js": "^2.4.24"
   },
   "dependencies": {
     "document-register-element": "^0.4.5"

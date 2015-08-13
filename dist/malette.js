@@ -3,21 +3,21 @@
 //! author : Brendan Heberton
 //!license : MIT
 
-//class FilteringSearchBar extends HTMLElement {
+//class Malette extends HTMLElement {
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var FilteringSearchBar = (function () {
+var Malette = (function () {
   // constructor(el) {
   //   this.el = el;
   //   //...
   // }
 
-  function FilteringSearchBar(container, options) {
-    _classCallCheck(this, FilteringSearchBar);
+  function Malette(container, options) {
+    _classCallCheck(this, Malette);
 
     console.log('init Malette, options: ', options);
     var self = this;
@@ -85,7 +85,7 @@ var FilteringSearchBar = (function () {
 
   //document.registerElement('filtering-search-bar', FilteringSearchBar);
 
-  _createClass(FilteringSearchBar, [{
+  _createClass(Malette, [{
     key: '_buildUI',
     value: function _buildUI() {
       var container = document.getElementById(this.container);
@@ -1293,7 +1293,7 @@ var FilteringSearchBar = (function () {
     }
   }]);
 
-  return FilteringSearchBar;
+  return Malette;
 })();
 
 'use strict';

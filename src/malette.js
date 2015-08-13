@@ -3,8 +3,8 @@
 //! author : Brendan Heberton
 //!license : MIT 
 
-//class FilteringSearchBar extends HTMLElement {
-class FilteringSearchBar {
+//class Malette extends HTMLElement {
+class Malette {
   // constructor(el) {
   //   this.el = el;
   //   //...
