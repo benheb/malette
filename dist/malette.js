@@ -17,6 +17,46 @@ function rgbaToDojoColor(c, opacity) {
   }
 }
 
+function classify(fieldName, fields) {
+
+  var breaks = 8;
+  var values = [];
+
+  fields.forEach(function (f) {
+    if (f.name === fieldName) {
+      var step = (f.statistics.max - f.statistics.min) / breaks;
+      for (var i = 0; i <= breaks; i++) {
+        values.push(f.statistics.min + step * i);
+      }
+    }
+  });
+
+  return values;
+}
+
+function stringToDom(tagString) {
+  var dom;
+
+  // standards land (IE 11+, FF, Chrome, Safari)
+  if (document.createRange) {
+    var range = document.createRange();
+    range.selectNode(document.body);
+    dom = range.createContextualFragment(tagString);
+  } else {
+    try {
+      // non standard IE behavior will throw a DOM error in non IE
+      dom = document.createElement(tagString);
+    } catch (e) {
+      // this is what most libraries do (jquery ect...)
+      var div = document.createElement('div');
+      div.innerHTML = tagString;
+      dom = div.childNodes;
+    }
+  }
+
+  return dom;
+}
+
 //! malette.js
 //! version : 1.00
 //!license : MIT
@@ -106,16 +146,14 @@ var Malette = (function () {
   _createClass(Malette, [{
     key: '_buildUI',
     value: function _buildUI() {
+      var template = '\n      <div id=\'malette\'>\n        <div id="malette-header">Malette!</div>\n        <div id=\'malette-content\'></div>\n      </div>\n    ';
+
       var container = document.getElementById(this.container);
-      var innerContainer = document.createElement('div');
-      container.appendChild(innerContainer).id = 'malette';
 
-      var content = document.createElement('div');
-      innerContainer.appendChild(content).id = 'malette-content';
+      container.appendChild(stringToDom(template));
 
-      var header = document.createElement('div');
-      innerContainer.appendChild(header).id = 'malette-header';
-      header.innerHTML = 'Malette';
+      var innerContainer = document.getElementById('malette');
+      var content = document.getElementById('malette-content');
 
       if (this.options.title) {
         header = document.createElement('div');
@@ -635,32 +673,6 @@ var Malette = (function () {
     }
 
     /*
-    * Classify function 
-    * Only thing supported right now is equal interval 
-    *
-    *
-    */
-  }, {
-    key: 'classify',
-    value: function classify(field) {
-
-      var fields = this.options.fields;
-      var breaks = 8;
-      var values = [];
-
-      fields.forEach(function (f) {
-        if (f.name === field) {
-          var step = (f.statistics.max - f.statistics.min) / breaks;
-          for (var i = 0; i <= breaks; i++) {
-            values.push(f.statistics.min + step * i);
-          }
-        }
-      });
-
-      return values;
-    }
-
-    /*
     * Sets thematic styles 
     * @param {Array} ramp     (optional) color ramp 
     * @param {String} field     Field being styled 
@@ -687,7 +699,7 @@ var Malette = (function () {
         self.selectedRamp[i][3] = self.state.fillOpacity;
       });
 
-      var values = this.classify(this.state.selectedField);
+      var values = classify(this.state.selectedField, this.options.fields);
 
       this.style.visualVariables = [{
         "type": "colorInfo",
@@ -740,7 +752,7 @@ var Malette = (function () {
     value: function setGraduated(field) {
       this.state.selectedField = field ? field : this.state.selectedField;
 
-      var values = this.classify(this.state.selectedField);
+      var values = classify(this.state.selectedField, this.options.fields);
 
       this.style.type = "classBreaks";
       this.style.field = this.state.selectedField;

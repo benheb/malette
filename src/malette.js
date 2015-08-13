@@ -2,7 +2,9 @@
 //! version : 1.00
 //!license : MIT 
 
-import {'*'} from './colors.js';
+import { dojoColorToRgba, rgbaToDojoColor } from './colors.js';
+import { classify } from './classify.js';
+import { stringToDom } from './string-to-dom.js';
 
 //class Malette extends HTMLElement {
 class Malette {
@@ -78,16 +80,19 @@ class Malette {
   }
 
   _buildUI () {
+    var template = `
+      <div id='malette'>
+        <div id="malette-header">Malette!</div>
+        <div id='malette-content'></div>
+      </div>
+    `
+    
     var container = document.getElementById( this.container );
-    var innerContainer = document.createElement( 'div' );
-    container.appendChild( innerContainer ).id = 'malette';
+    
+    container.appendChild(stringToDom(template));
 
-    var content = document.createElement( 'div' );
-    innerContainer.appendChild( content ).id = 'malette-content';
-
-    var header = document.createElement( 'div' );
-    innerContainer.appendChild( header ).id = 'malette-header';
-    header.innerHTML = 'Malette';
+    var innerContainer = document.getElementById( 'malette' );
+    var content = document.getElementById( 'malette-content' );
 
     if ( this.options.title ) {
       header = document.createElement( 'div' );
@@ -581,29 +586,6 @@ class Malette {
     }
   }
 
-  /*
-  * Classify function 
-  * Only thing supported right now is equal interval 
-  *
-  *
-  */
-  classify (field){
-
-    var fields = this.options.fields;
-    var breaks = 8; 
-    var values = [];
-
-    fields.forEach(function(f) {
-      if ( f.name === field ) {
-        var step = ( f.statistics.max - f.statistics.min ) / breaks;
-        for (var i = 0; i<=breaks; i++ ) {
-          values.push( f.statistics.min + (step * i) );
-        }
-      }
-    });
-
-    return values;
-  }
 
   /*
   * Sets thematic styles 
@@ -632,7 +614,7 @@ class Malette {
       self.selectedRamp[ i ][ 3 ] = self.state.fillOpacity;
     });
     
-    var values = this.classify( this.state.selectedField );
+    var values = classify( this.state.selectedField, this.options.fields );
     
     this.style.visualVariables = [
       { 
@@ -694,7 +676,7 @@ class Malette {
   setGraduated (field) {
     this.state.selectedField = ( field ) ? field : this.state.selectedField;
 
-    var values = this.classify( this.state.selectedField );
+    var values = classify( this.state.selectedField, this.options.fields );
 
     this.style.type = "classBreaks";
     this.style.field = this.state.selectedField;
