@@ -139,29 +139,33 @@ class Malette {
     var self = this;
 
     var container = document.getElementById('malette-content');
-    var el = this._createElement('div', container, 'malette-export-toggle-container', '', '');
-    var span = this._createElement('span', el, 'malette-export-toggle-text', 'Show JSON', '');
-    var toggle = this._createElement('input', el, 'malette-export-toggle', '', '');
-    toggle.type = 'checkbox';
-    if ( this._isShowJson ) {
-      toggle.checked = true;
-    }
+    var checked = ( this._isShowJson ) ? 'checked' : ''; 
+
+    var template = `
+      <div id='malette-export-toggle-container'>
+        <span id='malette-export-toggle-text'>Show JSON</span>
+        <input id='malette-export-toggle' type='checkbox' ${checked} />
+      </div>
+    `;
+
+    container.appendChild(stringToDom(template));
 
     var content = document.getElementById('malette');
-    var exporter = this._createElement('div', content, 'malette-export-container', '', '');
-    var header = this._createElement('div', exporter, 'malette-export-header', '', '');
-    
-    var css = this._createElement('input', header, 'malette-export-css-toggle', '', 'export-type-toggle');
-    css.type = 'checkbox';
-    css.checked = (this.exportFormat === 'css');
-    this._createElement('span', header, 'css-out-toggle', 'CSS', 'malette-export-label');
+    var cssChecked = ( this.exportFormat === 'css' ) ? 'checked' : ''; 
+    var esriChecked = ( this.exportFormat === 'esri-json' ) ? 'checked' : ''; 
+    var template = `
+      <div id='malette-export-container'>
+        <div id='malette-export-header'>
+          <input id='malette-export-css-toggle' class='export-type-toggle' type='checkbox' ${cssChecked} />
+          <span id='css-out-toggle' class='malette-export-label'>CSS</span>
+          <input id='malette-export-esri-toggle' class='export-type-toggle' type='checkbox' ${esriChecked} />
+          <span id='esri-out-toggle' class='malette-export-label'>Esri Renderer</span>
+        </div>
+        <textarea id='export-code-block' class='code-block'></textarea>
+      </div>
+    `
 
-    var esriRenderer = this._createElement('input', header, 'malette-export-esri-toggle', '', 'export-type-toggle');
-    esriRenderer.type = 'checkbox';
-    esriRenderer.checked = (this.exportFormat === 'esri-json');
-    this._createElement('span', header, 'esri-out-toggle', 'Esri Renderer', 'malette-export-label');
-
-    var codeBox = this._createElement('textarea', exporter, 'export-code-block', '', 'code-block');
+    content.appendChild(stringToDom(template));
     
     this.selectedExportType = this.exportFormat;
     this._generateExportStyle( this.exportFormat );
@@ -316,20 +320,18 @@ class Malette {
       this._createElement('div', el, 'malette-graduated-size-option', 'Graduated', 'malette-option-toggle disabled');
     }
 
-    var sizePalette = this._createElement('div', el, 'malette-size-palette', '', '');
-
     var size = this.style.symbol.size || 8; 
 
-    var slider = document.createElement( 'input' );
-    slider.type = 'range';
-    slider.min = 1;
-    slider.max = 30;
-    slider.step = 1;
-    slider.value = size;
-    sizePalette.appendChild( slider ).id = 'malette-size-slider';
-
-    var sizeNumber = this._createElement('div', sizePalette, 'malette-size-number', 'Radius: '+size+'px', '');
+    var template = `
+      <div id="malette-size-palette">
+        <input type='range' min="1" max="30" step="0.5" value=${size} id="malette-size-slider" />
+        <div id="malette-size-number">Radius: ${size}px</div>
+      </div>
+    `;
     
+    el.appendChild(stringToDom(template));
+
+
     //size slide event handler
     this._idEventBuilder('input', 'malette-size-slider', '_onSizeChanged' );
 
@@ -365,18 +367,17 @@ class Malette {
   _constructStrokePalette (el) {
     var self = this;
     el.innerHTML = '';
-    var width = ( this.state.type !== 'line' ) ? this.style.symbol.outline.width : this.style.symbol.width; 
-    
-    var slider = document.createElement( 'input' );
-    slider.type = 'range';
-    slider.min = 0.5;
-    slider.max = 20;
-    slider.step = 0.5;
-    slider.value = width;
-    el.appendChild( slider ).id = 'malette-stroke-slider';
 
-    var sizeNumber = this._createElement('div', el, 'malette-stroke-width', width+'px', '');
-    el.appendChild( sizeNumber );
+    var width = ( this.state.type !== 'line' ) ? this.style.symbol.outline.width : this.style.symbol.width; 
+    width = width.toFixed(1);
+
+    var template = `
+      <input type='range' min="0.5" max="20" step="0.5" value=${width} id="malette-stroke-slider" />
+      <div id="malette-stroke-width">${width}px</div>
+    `;
+    
+    el.appendChild(stringToDom(template));
+
 
     if ( this.state.type !== 'line' ) {
       this._addColors( el, this.style.symbol.outline.color );
