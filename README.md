@@ -14,3 +14,5 @@ Malette UI: [http://benheb.github.io/malette-ui/](http://benheb.github.io/malett
 - [ ] ~~package css into it~~ (i think we would need html imports for this too)
 - [ ] break it into several files/modules?
 - [ ] use more es6 features
+- [ ] sourcemaps
+- [ ] tests
