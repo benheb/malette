@@ -85,7 +85,7 @@ class Malette {
         <div id="malette-header">Malette</div>
         <div id='malette-content'></div>
       </div>
-    `
+    `;
     
     var container = document.getElementById( this.container );
     
@@ -123,7 +123,7 @@ class Malette {
         <div id='malette-stroke-tab' class='malette-tab'>${stroke}</div>
         <div id='malette-opacity-tab' class='malette-tab'>opacity</div>
       </div>
-    `
+    `;
     el.appendChild(stringToDom(template));
 
     //toggle the tabs!! 
@@ -214,7 +214,7 @@ class Malette {
       <div id='malette-theme-palette'>
         <div id='malette-theme-palette-inner'></div>
       </div>
-    `
+    `;
     el.appendChild(stringToDom(template));
 
     var palette = document.getElementById( 'malette-theme-palette');
