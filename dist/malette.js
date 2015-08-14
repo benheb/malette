@@ -88,13 +88,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-//class Malette extends HTMLElement {
 var Malette = (function () {
-  // constructor(el) {
-  //   this.el = el;
-  //   //...
-  // }
-
   function Malette(container, options) {
     _classCallCheck(this, Malette);
 
@@ -161,8 +155,6 @@ var Malette = (function () {
       this._addExporter();
     }
   }
-
-  //document.registerElement('filtering-search-bar', FilteringSearchBar);
 
   _createClass(Malette, [{
     key: '_buildUI',

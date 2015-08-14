@@ -6,12 +6,7 @@ import { dojoColorToRgba, rgbaToDojoColor, themeColors, colorSwatches } from './
 import { classify } from './classify.js';
 import { stringToDom } from './string-to-dom.js';
 
-//class Malette extends HTMLElement {
-class Malette {
-  // constructor(el) {
-  //   this.el = el;
-  //   //...
-  // }
+export class Malette {
 
   constructor (container, options) {
     console.log('init Malette, options: ', options);
@@ -1184,5 +1179,3 @@ class Malette {
     }
   }
 }
-
-//document.registerElement('filtering-search-bar', FilteringSearchBar);
