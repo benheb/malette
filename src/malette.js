@@ -93,7 +93,7 @@ export class Malette {
       header = document.createElement( 'div' );
       innerContainer.appendChild( header ).id = 'malette-title';
       header.innerHTML = this.options.title;
-      document.getElementById('malette-content').style['margin-top'] = '40px';
+      document.getElementById('malette-content').style['margin-top'] = '17px';
     }
 
     this._addTabs(innerContainer);
